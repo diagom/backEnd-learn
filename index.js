@@ -5,6 +5,7 @@ const fs = require('fs');
 const cors = require('cors');
 const app = express();
 const path = require('path');
+const { readFile } = fs.promises;
 
 const port = 5000;
 
@@ -18,8 +19,8 @@ app.use(
   })
 );
 
-app.get('/news', (req, res) => {
-  res.json([{ Title: 'cool new!' }]);
+app.get('/', async (request, response) => {
+  response.send(await readFile('./home.html', 'utf8'));
 });
 
 app.listen(port, () => {
